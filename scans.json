@@ -1,0 +1,48 @@
+
+[
+    {
+        "id": 9,
+        "requested_by": 2,
+        "started_at": "2020-01-01T00:00:00.000Z",
+        "finished_at": "2020-01-01T00:12:56.000Z",
+        "name": "Monthly Vulnerability Scan",
+        "status": "completed",
+        "scanners": [
+            "Nexpose",
+            "Openvas"
+        ],
+        "severity_counts": {
+            "critical": 0,
+            "high": 0,
+            "medium": 1,
+            "low": 1,
+            "information": 2
+        },
+        "assets_scanned": [
+            9, 33, 35
+        ]
+    },
+    {
+        "id": 58,
+        "requested_by": 1,
+        "started_at": "2020-02-01T00:00:00.000Z",
+        "finished_at": "2020-02-01T00:24:29.000Z",
+        "name": "Monthly Vulnerability Scan",
+        "status": "completed",
+        "scanners": [
+            "Nexpose",
+            "Openvas",
+            "Typhon"
+        ],
+        "severity_counts": {
+            "critical": 0,
+            "high": 2,
+            "medium": 2,
+            "low": 1,
+            "information": 2
+        },
+        "assets_scanned": [
+            9, 33, 35
+        ]
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "id": 9,
+        "name": "T09277",
+        "description": "Email server",
+        "created": "2018-09-03T13:19:33.000Z"
+    },
+    {
+        "id": 33,
+        "name": "T09320",
+        "description": "Main Database",
+        "created": "2018-01-27T13:24:24.000Z"
+    },
+    {
+        "id": 35,
+        "name": "T09746",
+        "description": "Firewall",
+        "created": "2018-01-27T13:33:55.000Z"
+    }
+]
