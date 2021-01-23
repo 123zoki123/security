@@ -1,15 +1,32 @@
 from django.db import models
-from enum import Enum
+from enum import Enum, EnumMeta
+from typing import List
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.fields.jsonb import JSONField
 
 
-class Status(Enum):
+class ChoicesMixin:
+    @classmethod
+    def get_choices(cls) -> List:
+        print(type(cls))
+        return [(i, i.value) for i in cls]
+
+    @classmethod
+    def get_enum(cls, value: str):
+        for i in cls:
+            if i.value == value:
+                return i
+
+
+class Status(ChoicesMixin, Enum):
     COMPLETED = "completed"
     FAILED = "failed"
 
 
-class Severity(Enum):
+class Severity(
+    ChoicesMixin,
+    Enum,
+):
     INFORMATION = "information"
     MEDIUM = "medium"
     HIGH = "high"
@@ -31,21 +48,17 @@ class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
 
+    def __str__(self) -> str:
+        return f"{self.email}"
+
 
 class Asset(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    scan = models.ForeignKey(
-        "Scan",
-        on_delete=models.DO_NOTHING,
-        related_name="assets_scanned",
-    )
-    vulnerability = models.ForeignKey(
-        "Vulnerability",
-        on_delete=models.DO_NOTHING,
-        related_name="affected_assets",
-    )
+    created = models.DateTimeField()
+
+    def __str__(self) -> str:
+        return f"Scan name: {self.name}, id: {self.pk}"
 
 
 class Scan(models.Model):
@@ -59,21 +72,24 @@ class Scan(models.Model):
     name = models.CharField(max_length=255)
     status = models.CharField(
         max_length=50,
-        choices=[(tag, tag.value) for tag in Status],
+        choices=Status.get_choices(),
     )
-
+    assets = models.ManyToManyField("Asset")
     scanners = ArrayField(models.CharField(max_length=50, null=True, blank=True))
     severity_counts = JSONField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f"{self.name} - {self.pk}"
 
 
 class Vulnerability(models.Model):
     severity = models.CharField(
         max_length=50,
-        choices=[(tag, tag.value) for tag in Severity],
+        choices=Severity.get_choices(),
     )
     name = models.CharField(max_length=255)
     description = models.TextField()
-    solution = models.TextField()
+    solution = models.TextField(null=True, blank=True)
     references = ArrayField(models.URLField(null=True, blank=True))
     cvss_base_score = models.DecimalField(max_digits=2, decimal_places=1)
     scans = models.ForeignKey(
@@ -81,3 +97,7 @@ class Vulnerability(models.Model):
         on_delete=models.DO_NOTHING,
         related_name="vulnerabilities",
     )
+    affected_assets = models.ManyToManyField("Asset")
+
+    def __str__(self) -> str:
+        return f"{self.name} - {self.pk}"
