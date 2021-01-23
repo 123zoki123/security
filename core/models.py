@@ -8,7 +8,6 @@ from django.contrib.postgres.fields.jsonb import JSONField
 class ChoicesMixin:
     @classmethod
     def get_choices(cls) -> List:
-        print(type(cls))
         return [(i, i.value) for i in cls]
 
     @classmethod
@@ -16,6 +15,18 @@ class ChoicesMixin:
         for i in cls:
             if i.value == value:
                 return i
+
+    @classmethod
+    def get_value(cls, key: str) -> str:
+        """
+        key comes as ClassName.NAME
+        so need to extract NAME from here
+        """
+        _, name = key.split(".")
+
+        for i in cls:
+            if i.name == name:
+                return i.value
 
 
 class Status(ChoicesMixin, Enum):
