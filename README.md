@@ -65,10 +65,13 @@ Please provide details in the README of how to run your code and your thinking w
 
 
 Notes about models
-# Not doing any search in the array fields therefor there won't be any performance issues, known for ArrayField
-# for the sake of the project keeping it simple using these fields
-# They are from postgres contrib however I do not chose postgres for these fields
-# Another, and I think much better solution is to use foreign keys to other tables that contain the data and do calculations on those
-# Once again, using ArrayField nad JSONField just for the sake of the example, to keep it short and simple
-# Also not extending the django user model just because there won't be any authentication on the api endpoint
-# fully aware that there can be restrictions however it isn't specified
+- Not doing any search in the array fields therefor there won't be any performance issues, known for ArrayField
+- for the sake of the project keeping it simple using these fields
+- They are from postgres contrib however I do not chose postgres for these fields
+- Another, and I think much better solution is to use foreign keys to other tables that contain the data and do calculations on those
+- Once again, using ArrayField nad JSONField just for the sake of the example, to keep it short and simple
+- Also not extending the django user model just because there won't be any authentication on the api endpoint
+- fully aware that there can be restrictions however it isn't specified
+
+# How to run this app:
+You can  visit https://boiling-badlands-45501.herokuapp.com/api/v1/ for hosted version.
