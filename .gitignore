@@ -1,5 +1,5 @@
 .vscode/
-venv
+venv/
 README
 
 # Created by https://www.toptal.com/developers/gitignore/api/django

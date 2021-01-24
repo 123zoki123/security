@@ -62,3 +62,13 @@ How you approach this task is completely up to you. The API should respond in RP
 We’re not concerned if it’s not finished, how you tackle the problem is more important for us to see. – if you are able to put it somewhere we can get to – we would suggest GitHub we can discuss this in detail at your interview.
 
 Please provide details in the README of how to run your code and your thinking whilst working on this project.
+
+
+Notes about models
+# Not doing any search in the array fields therefor there won't be any performance issues, known for ArrayField
+# for the sake of the project keeping it simple using these fields
+# They are from postgres contrib however I do not chose postgres for these fields
+# Another, and I think much better solution is to use foreign keys to other tables that contain the data and do calculations on those
+# Once again, using ArrayField nad JSONField just for the sake of the example, to keep it short and simple
+# Also not extending the django user model just because there won't be any authentication on the api endpoint
+# fully aware that there can be restrictions however it isn't specified
