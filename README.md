@@ -75,3 +75,36 @@ Notes about models
 
 # How to run this app:
 You can  visit https://boiling-badlands-45501.herokuapp.com/api/v1/ for hosted version.
+
+# How to run this code locally:
+
+First you would need to clone the repository. Create new folder, navigate inside it and:
+
+`git clone git@github.com:123zoki123/security.git`
+
+After that run:
+
+`docker-compose up -d --build`
+
+After this builds successfully navigate to your browser and open:
+
+`http://localhost:8009/api/v1/`
+
+The links are available for navigation however there's no data inside the db. In order to populate it you have to run
+migrations first:
+
+`docker-compose exec security python manage.py makemigrations --noinput`
+
+After the migrations are finished then run:
+
+`docker-compose exec security python manage.py runscript add_data`
+
+If you go in your browser again and try:
+
+`http://localhost:8009/api/v1/`
+
+and try to click on any of the links, for example:
+
+`http://localhost:8009/api/v1/vulnerabilities/`
+
+You should see the data populated there.
