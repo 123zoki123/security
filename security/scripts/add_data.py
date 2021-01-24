@@ -58,11 +58,11 @@ def create_vulnerabilities() -> None:
                 for ref in ref_string.split(" "):
                     refs.append(ref)
             vuln_obj.references = refs
-            vuln_obj.scans_id = vuln.get("from_scan")
+            vuln_obj.scan_id = vuln.get("from_scan")
             vuln_obj.save()
             assets = Asset.objects.filter(pk__in=get_values_helper(vuln, "affected"))
             for a in assets:
-                vuln_obj.affected_assets.add(a)
+                vuln_obj.assets.add(a)
             vuln_obj.save()
 
     except Exception as e:

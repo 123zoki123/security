@@ -8,25 +8,13 @@ from django.contrib.postgres.fields.jsonb import JSONField
 class ChoicesMixin:
     @classmethod
     def get_choices(cls) -> List:
-        return [(i, i.value) for i in cls]
+        return [(i.name, i.value) for i in cls]
 
     @classmethod
     def get_enum(cls, value: str):
         for i in cls:
             if i.value == value:
-                return i
-
-    @classmethod
-    def get_value(cls, key: str) -> str:
-        """
-        key comes as ClassName.NAME
-        so need to extract NAME from here
-        """
-        _, name = key.split(".")
-
-        for i in cls:
-            if i.name == name:
-                return i.value
+                return i.name
 
 
 class Status(ChoicesMixin, Enum):
@@ -67,7 +55,7 @@ class Scan(models.Model):
     requested_by = models.ForeignKey(
         "User",
         on_delete=models.DO_NOTHING,
-        related_name="user",
+        related_name="scans",
     )
     started_at = models.DateTimeField(null=True, blank=True)
     finished_at = models.DateTimeField(null=True, blank=True)
@@ -94,12 +82,12 @@ class Vulnerability(models.Model):
     solution = models.TextField(null=True, blank=True)
     references = ArrayField(models.URLField(null=True, blank=True))
     cvss_base_score = models.DecimalField(max_digits=2, decimal_places=1)
-    scans = models.ForeignKey(
+    scan = models.ForeignKey(
         "Scan",
         on_delete=models.DO_NOTHING,
         related_name="vulnerabilities",
     )
-    affected_assets = models.ManyToManyField("Asset")
+    assets = models.ManyToManyField("Asset")
 
     def __str__(self) -> str:
         return f"{self.name} - {self.pk}"
