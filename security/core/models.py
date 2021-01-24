@@ -1,5 +1,5 @@
 from django.db import models
-from enum import Enum, EnumMeta
+from enum import Enum
 from typing import List
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.fields.jsonb import JSONField
