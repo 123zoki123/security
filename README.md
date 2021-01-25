@@ -26,7 +26,7 @@ After this builds successfully navigate to your browser and open:
 The links are available for navigation however there's no data inside the db. In order to populate it you have to run
 migrations first:
 
-`docker-compose exec security python manage.py makemigrations --noinput`
+`docker-compose exec security python manage.py migrate --noinput`
 
 After the migrations are finished then run:
 
